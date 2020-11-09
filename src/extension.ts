@@ -1,4 +1,4 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
   const getActiveTerminalIndex = () => {
@@ -18,30 +18,32 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   const focusEditor = () => {
-    vscode.commands.executeCommand('workbench.action.closePanel');
-    vscode.commands.executeCommand('workbench.action.focusActiveEditorGroup');
+    if (vscode.window.activeTerminal) {
+      vscode.window.activeTerminal.hide();
+    }
+    vscode.commands.executeCommand("workbench.action.focusActiveEditorGroup");
   };
 
-  const focusFirstTerminal = () => {
-    vscode.commands.executeCommand('workbench.action.toggleMaximizedPanel');
+  const focusFirstTerminal = async () => {
     if (vscode.window.terminals.length > 0) {
       vscode.window.terminals[0].show();
     }
+    vscode.commands.executeCommand("workbench.action.terminal.toggleTerminal");
   };
 
   const focusTerminalLeft = () => {
-    vscode.commands.executeCommand('workbench.action.terminal.focusPrevious');
+    vscode.commands.executeCommand("workbench.action.terminal.focusPrevious");
   };
 
   const focusTerminalRight = () => {
-    vscode.commands.executeCommand('workbench.action.terminal.focusNext');
+    vscode.commands.executeCommand("workbench.action.terminal.focusNext");
   };
 
   const focusLastTerminal = () => {
-    vscode.commands.executeCommand('workbench.action.toggleMaximizedPanel');
     if (vscode.window.terminals.length > 0) {
       vscode.window.terminals.slice(-1)[0].show();
     }
+    vscode.commands.executeCommand("workbench.action.terminal.toggleTerminal");
   };
 
   const moveTerminalFocusLeft = () => {
@@ -69,14 +71,13 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   const commandsToRegister: Array<[string, () => void]> = [
-    ['extension.vscedric.moveTerminalFocusLeft', moveTerminalFocusLeft],
-    ['extension.vscedric.moveTerminalFocusRight', moveTerminalFocusRight],
-    ['extension.vscedric.moveEditorFocusLeft', moveEditorFocusLeft],
-    ['extension.vscedric.moveEditorFocusRight', moveEditorFocusRight],
+    ["extension.vscedric.moveTerminalFocusLeft", moveTerminalFocusLeft],
+    ["extension.vscedric.moveTerminalFocusRight", moveTerminalFocusRight],
+    ["extension.vscedric.moveEditorFocusLeft", moveEditorFocusLeft],
+    ["extension.vscedric.moveEditorFocusRight", moveEditorFocusRight],
   ];
 
   commandsToRegister.forEach(([cmd, handler]) => {
     context.subscriptions.push(vscode.commands.registerCommand(cmd, handler));
   });
 }
-
