@@ -1,54 +1,58 @@
 {
-	"name": "vs-cedric",
-	"displayName": "VS Cedric",
-	"description": "",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.41.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extension.vscedric.moveTerminalFocusLeft",
-		"onCommand:extension.vscedric.moveTerminalFocusRight",
-		"onCommand:extension.vscedric.moveEditorFocusLeft",
-		"onCommand:extension.vscedric.moveEditorFocusRight"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.vscedric.moveTerminalFocusLeft",
-				"title": "Move Terminal Focus Left"
-			},
-			{
-				"command": "extension.vscedric.moveTerminalFocusRight",
-				"title": "Move Terminal Focus Right"
-			},
-			{
-				"command": "extension.vscedric.moveEditorFocusLeft",
-				"title": "Move Editor Focus Left"
-			},
-			{
-				"command": "extension.vscedric.moveEditorFocusRight",
-				"title": "Move Editor Focus Right"
-			}
-		]
-	},
-	"scripts": {
-    "install": "tsc -p ./ && rm -rf ~/.vscode/extensions/vs-cedric && mkdir ~/.vscode/extensions/vs-cedric && cp -r . ~/.vscode/extensions/vs-cedric/"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.41.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"tslint": "^5.20.0",
-		"typescript": "^3.6.4",
-		"vsce": "^1.72.0",
-		"vscode-test": "^1.2.2"
-	}
+  "name": "vs-cedric",
+  "displayName": "VS Cedric",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.41.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.vscedric.moveTerminalFocusLeft",
+    "onCommand:extension.vscedric.moveTerminalFocusRight",
+    "onCommand:extension.vscedric.moveEditorFocusLeft",
+    "onCommand:extension.vscedric.moveEditorFocusRight"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.vscedric.moveTerminalFocusLeft",
+        "title": "Move Terminal Focus Left"
+      },
+      {
+        "command": "extension.vscedric.moveTerminalFocusRight",
+        "title": "Move Terminal Focus Right"
+      },
+      {
+        "command": "extension.vscedric.moveEditorFocusLeft",
+        "title": "Move Editor Focus Left"
+      },
+      {
+        "command": "extension.vscedric.moveEditorFocusRight",
+        "title": "Move Editor Focus Right"
+      }
+    ]
+  },
+  "scripts": {
+    "install": "tsc -p ./ && rm -rf ~/.vscode/extensions/vs-cedric && mkdir ~/.vscode/extensions/vs-cedric && cp -r . ~/.vscode/extensions/vs-cedric/",
+    "watch": "tsc -p ./ --watch"
+  },
+  "watch": {
+    "files": "**/*.ts"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "vsce": "^1.72.0",
+    "vscode-test": "^1.2.2"
+  }
 }
