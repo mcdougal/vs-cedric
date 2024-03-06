@@ -1,7 +1,6 @@
-import * as vscode from "vscode";
-import * as path from "path";
 import * as fs from "fs";
-import { TextEncoder } from "util";
+import * as path from "path";
+import * as vscode from "vscode";
 
 const log = vscode.window.createOutputChannel("VSCedric");
 
@@ -105,7 +104,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   const createTsIndexFile = () => {
     const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
-    log.appendLine(`filePath: ${filePath}`);
 
     if (!filePath) {
       return;
@@ -115,17 +113,13 @@ export function activate(context: vscode.ExtensionContext) {
     const fileName = path.basename(filePath);
     const componentName = fileName.split(".")[0];
     const indexFilePath = path.join(dirPath, "index.ts");
-    log.appendLine(`dirPath: ${dirPath}`);
-    log.appendLine(`fileName: ${fileName}`);
-    log.appendLine(`componentName: ${componentName}`);
-    log.appendLine(`indexFilePath: ${indexFilePath}`);
 
-    const fileContent = `import ${componentName} from "./${componentName}";
+    const fileContent = `import ${componentName} from './${componentName}';
 
-  export default ${componentName};
-  `;
+export default ${componentName};
+`;
 
-    fs.writeFileSync(indexFilePath, new TextEncoder().encode(fileContent));
+    fs.writeFileSync(indexFilePath, fileContent);
   };
 
   const commandsToRegister: Array<[string, () => void]> = [
