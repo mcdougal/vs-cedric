@@ -1,10 +1,27 @@
 import * as vscode from "vscode";
+import * as path from "path";
+import * as fs from "fs";
+import { TextEncoder } from "util";
+
+const log = vscode.window.createOutputChannel("VSCedric");
 
 export function activate(context: vscode.ExtensionContext) {
-  const getActiveTerminalIndex = () => {
+  log.appendLine(`Activating VSCedric...`);
+
+  const getVisibleTerminals = () => {
     const terminals = vscode.window.terminals;
+    return terminals.filter((t) => {
+      const hiddenFromUser = (t as any).creationOptions?.hideFromUser;
+      return !hiddenFromUser;
+    });
+  };
+
+  const getActiveTerminalIndex = () => {
+    const visibleTerminals = getVisibleTerminals();
     const activeTerminal = vscode.window.activeTerminal;
-    const index = activeTerminal ? terminals.indexOf(activeTerminal) : -1;
+    const index = activeTerminal
+      ? visibleTerminals.indexOf(activeTerminal)
+      : -1;
 
     return index === -1 ? null : index;
   };
@@ -14,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   const isLastTerminalActive = () => {
-    return getActiveTerminalIndex() === vscode.window.terminals.length - 1;
+    return getActiveTerminalIndex() === getVisibleTerminals().length - 1;
   };
 
   const focusEditor = () => {
@@ -25,10 +42,33 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   const focusFirstTerminal = async () => {
-    if (vscode.window.terminals.length > 0) {
-      vscode.window.terminals[0].show();
+    vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex1");
+  };
+
+  const focusLastTerminal = () => {
+    const visibleTerminals = getVisibleTerminals();
+
+    if (visibleTerminals.length === 0) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex1");
+    } else if (visibleTerminals.length === 1) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex1");
+    } else if (visibleTerminals.length === 2) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex2");
+    } else if (visibleTerminals.length === 3) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex3");
+    } else if (visibleTerminals.length === 4) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex4");
+    } else if (visibleTerminals.length === 5) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex5");
+    } else if (visibleTerminals.length === 6) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex6");
+    } else if (visibleTerminals.length === 7) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex7");
+    } else if (visibleTerminals.length === 8) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex8");
+    } else if (visibleTerminals.length === 9) {
+      vscode.commands.executeCommand("workbench.action.terminal.focusAtIndex9");
     }
-    vscode.commands.executeCommand("workbench.action.terminal.toggleTerminal");
   };
 
   const focusTerminalLeft = () => {
@@ -37,13 +77,6 @@ export function activate(context: vscode.ExtensionContext) {
 
   const focusTerminalRight = () => {
     vscode.commands.executeCommand("workbench.action.terminal.focusNext");
-  };
-
-  const focusLastTerminal = () => {
-    if (vscode.window.terminals.length > 0) {
-      vscode.window.terminals.slice(-1)[0].show();
-    }
-    vscode.commands.executeCommand("workbench.action.terminal.toggleTerminal");
   };
 
   const moveTerminalFocusLeft = () => {
@@ -70,7 +103,33 @@ export function activate(context: vscode.ExtensionContext) {
     focusFirstTerminal();
   };
 
+  const createTsIndexFile = () => {
+    const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
+    log.appendLine(`filePath: ${filePath}`);
+
+    if (!filePath) {
+      return;
+    }
+
+    const dirPath = path.dirname(filePath);
+    const fileName = path.basename(filePath);
+    const componentName = fileName.split(".")[0];
+    const indexFilePath = path.join(dirPath, "index.ts");
+    log.appendLine(`dirPath: ${dirPath}`);
+    log.appendLine(`fileName: ${fileName}`);
+    log.appendLine(`componentName: ${componentName}`);
+    log.appendLine(`indexFilePath: ${indexFilePath}`);
+
+    const fileContent = `import ${componentName} from "./${componentName}";
+
+  export default ${componentName};
+  `;
+
+    fs.writeFileSync(indexFilePath, new TextEncoder().encode(fileContent));
+  };
+
   const commandsToRegister: Array<[string, () => void]> = [
+    ["extension.vscedric.createTsIndexFile", createTsIndexFile],
     ["extension.vscedric.moveTerminalFocusLeft", moveTerminalFocusLeft],
     ["extension.vscedric.moveTerminalFocusRight", moveTerminalFocusRight],
     ["extension.vscedric.moveEditorFocusLeft", moveEditorFocusLeft],
