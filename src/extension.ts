@@ -102,6 +102,49 @@ export function activate(context: vscode.ExtensionContext) {
     focusFirstTerminal();
   };
 
+  const createTsComponentDirectory = async () => {
+    const componentNameRaw = await vscode.window.showInputBox({
+      placeHolder: "Enter component name...",
+      value: ``,
+    });
+
+    const componentName = componentNameRaw?.trim();
+
+    if (!componentName) {
+      return;
+    }
+
+    const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
+
+    if (!filePath) {
+      return;
+    }
+
+    const parentDirPath = path.dirname(filePath);
+    const componentDirPath = path.join(parentDirPath, componentName);
+
+    const componentTsxFilePath = path.join(
+      componentDirPath,
+      `${componentName}.tsx`
+    );
+    const componentTsxFileContent = `const ${componentName} = (): React.ReactElement => {
+  //
+};
+
+export default ${componentName};
+`;
+
+    const indexFilePath = path.join(componentDirPath, `index.ts`);
+    const indexFileContent = `import ${componentName} from './${componentName}';
+
+export default ${componentName};
+`;
+
+    fs.mkdirSync(componentDirPath);
+    fs.writeFileSync(componentTsxFilePath, componentTsxFileContent);
+    fs.writeFileSync(indexFilePath, indexFileContent);
+  };
+
   const createTsIndexFile = () => {
     const filePath = vscode.window.activeTextEditor?.document.uri.fsPath;
 
@@ -122,7 +165,12 @@ export default ${componentName};
     fs.writeFileSync(indexFilePath, fileContent);
   };
 
+  // Add commands to package.json as well
   const commandsToRegister: Array<[string, () => void]> = [
+    [
+      "extension.vscedric.createTsComponentDirectory",
+      createTsComponentDirectory,
+    ],
     ["extension.vscedric.createTsIndexFile", createTsIndexFile],
     ["extension.vscedric.moveTerminalFocusLeft", moveTerminalFocusLeft],
     ["extension.vscedric.moveTerminalFocusRight", moveTerminalFocusRight],

@@ -14,6 +14,8 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:extension.vscedric.createTsComponentDirectory",
+    "onCommand:extension.vscedric.createTsIndexFile",
     "onCommand:extension.vscedric.moveTerminalFocusLeft",
     "onCommand:extension.vscedric.moveTerminalFocusRight",
     "onCommand:extension.vscedric.moveEditorFocusLeft",
@@ -22,6 +24,14 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "extension.vscedric.createTsComponentDirectory",
+        "title": "Create TS Component Directory"
+      },
+      {
+        "command": "extension.vscedric.createTsIndexFile",
+        "title": "Create TS Index File"
+      },
       {
         "command": "extension.vscedric.moveTerminalFocusLeft",
         "title": "Move Terminal Focus Left"
