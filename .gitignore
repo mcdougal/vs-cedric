@@ -1,4 +1,43 @@
-out
+# Dependencies
 node_modules
+
+# Temporary editor files
+.DS_Store
+*.swp
+*~
+*.temp
+
+# Logs
+npm-debug.log*
+
+# Local env files
+.env*.local
+.env
+.secrets.yml
+
+# VSCode
+.vscode
 .vscode-test/
 *.vsix
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Sentry
+.sentryclirc
+
+# Vercel
+.vercel
+
+# Supabase
+supabase/migrations
+
+# Build
+out
+
+# Misc
+*.pem
+
+# Files
+files
