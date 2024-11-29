@@ -3,7 +3,7 @@
   "displayName": "VS Cedric",
   "description": "Personal tooling",
   "publisher": "cedricmcdougal",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "main": "./out/extension.js",
   "repository": {
