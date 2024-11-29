@@ -4,7 +4,7 @@
   "description": "Personal tooling",
   "publisher": "cedricmcdougal",
   "version": "0.1.0",
-  "type": "module",
+  "type": "commonjs",
   "main": "./out/extension.js",
   "repository": {
     "type": "git",
