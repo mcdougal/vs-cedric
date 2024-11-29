@@ -2,6 +2,7 @@
   "name": "vs-cedric",
   "displayName": "VS Cedric",
   "description": "Personal tooling",
+  "publisher": "cedricmcdougal",
   "version": "0.0.1",
   "type": "module",
   "main": "./out/extension.js",

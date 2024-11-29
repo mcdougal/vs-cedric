@@ -1,6 +1,6 @@
 # vs-cedric
 
-To install:
+Development:
 
 1. Compile the extension to `vs-cedric-0.0.1.vsix`
 
