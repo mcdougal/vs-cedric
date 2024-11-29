@@ -40,62 +40,62 @@
     "vscode-test": "^1.6.1"
   },
   "activationEvents": [
-    "onCommand:extension.vscedric.blockSelectDown",
-    "onCommand:extension.vscedric.blockSelectUp",
-    "onCommand:extension.vscedric.blockTravelDown",
-    "onCommand:extension.vscedric.blockTravelUp",
-    "onCommand:extension.vscedric.copyFileName",
-    "onCommand:extension.vscedric.createTsComponentDirectory",
-    "onCommand:extension.vscedric.createTsIndexFile",
-    "onCommand:extension.vscedric.moveEditorFocusLeft",
-    "onCommand:extension.vscedric.moveEditorFocusRight",
-    "onCommand:extension.vscedric.moveTerminalFocusLeft",
-    "onCommand:extension.vscedric.moveTerminalFocusRight"
+    "onCommand:vs-cedric.blockSelectDown",
+    "onCommand:vs-cedric.blockSelectUp",
+    "onCommand:vs-cedric.blockTravelDown",
+    "onCommand:vs-cedric.blockTravelUp",
+    "onCommand:vs-cedric.copyFileName",
+    "onCommand:vs-cedric.createTsComponentDirectory",
+    "onCommand:vs-cedric.createTsIndexFile",
+    "onCommand:vs-cedric.moveEditorFocusLeft",
+    "onCommand:vs-cedric.moveEditorFocusRight",
+    "onCommand:vs-cedric.moveTerminalFocusLeft",
+    "onCommand:vs-cedric.moveTerminalFocusRight"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "extension.vscedric.blockSelectDown",
+        "command": "vs-cedric.blockSelectDown",
         "title": "Block select down"
       },
       {
-        "command": "extension.vscedric.blockSelectUp",
+        "command": "vs-cedric.blockSelectUp",
         "title": "Block select up"
       },
       {
-        "command": "extension.vscedric.blockTravelDown",
+        "command": "vs-cedric.blockTravelDown",
         "title": "Block travel down"
       },
       {
-        "command": "extension.vscedric.blockTravelUp",
+        "command": "vs-cedric.blockTravelUp",
         "title": "Block travel up"
       },
       {
-        "command": "extension.vscedric.copyFileName",
+        "command": "vs-cedric.copyFileName",
         "title": "Copy filename"
       },
       {
-        "command": "extension.vscedric.createTsComponentDirectory",
+        "command": "vs-cedric.createTsComponentDirectory",
         "title": "Create TS Component Directory"
       },
       {
-        "command": "extension.vscedric.createTsIndexFile",
+        "command": "vs-cedric.createTsIndexFile",
         "title": "Create TS Index File"
       },
       {
-        "command": "extension.vscedric.moveTerminalFocusLeft",
+        "command": "vs-cedric.moveTerminalFocusLeft",
         "title": "Move Terminal Focus Left"
       },
       {
-        "command": "extension.vscedric.moveTerminalFocusRight",
+        "command": "vs-cedric.moveTerminalFocusRight",
         "title": "Move Terminal Focus Right"
       },
       {
-        "command": "extension.vscedric.moveEditorFocusLeft",
+        "command": "vs-cedric.moveEditorFocusLeft",
         "title": "Move Editor Focus Left"
       },
       {
-        "command": "extension.vscedric.moveEditorFocusRight",
+        "command": "vs-cedric.moveEditorFocusRight",
         "title": "Move Editor Focus Right"
       }
     ]

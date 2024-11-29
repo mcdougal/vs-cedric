@@ -248,25 +248,22 @@ export default ${componentName};
 
   // Add commands to package.json as well
   const commandsToRegister: Array<[string, () => void]> = [
-    ["extension.vscedric.copyFileName", copyFileName],
-    [
-      "extension.vscedric.createTsComponentDirectory",
-      createTsComponentDirectory,
-    ],
-    ["extension.vscedric.createTsIndexFile", createTsIndexFile],
-    ["extension.vscedric.moveTerminalFocusLeft", moveTerminalFocusLeft],
-    ["extension.vscedric.moveTerminalFocusRight", moveTerminalFocusRight],
-    ["extension.vscedric.moveEditorFocusLeft", moveEditorFocusLeft],
-    ["extension.vscedric.moveEditorFocusRight", moveEditorFocusRight],
+    ["vs-cedric.copyFileName", copyFileName],
+    ["vs-cedric.createTsComponentDirectory", createTsComponentDirectory],
+    ["vs-cedric.createTsIndexFile", createTsIndexFile],
+    ["vs-cedric.moveTerminalFocusLeft", moveTerminalFocusLeft],
+    ["vs-cedric.moveTerminalFocusRight", moveTerminalFocusRight],
+    ["vs-cedric.moveEditorFocusLeft", moveEditorFocusLeft],
+    ["vs-cedric.moveEditorFocusRight", moveEditorFocusRight],
   ];
 
   const textEditorCommandsToRegister: Array<
     [string, (editor: vscode.TextEditor) => void]
   > = [
-    ["extension.vscedric.blockTravelDown", blockTravelDown],
-    ["extension.vscedric.blockSelectDown", blockSelectDown],
-    ["extension.vscedric.blockTravelUp", blockTravelUp],
-    ["extension.vscedric.blockSelectUp", blockSelectUp],
+    ["vs-cedric.blockTravelDown", blockTravelDown],
+    ["vs-cedric.blockSelectDown", blockSelectDown],
+    ["vs-cedric.blockTravelUp", blockTravelUp],
+    ["vs-cedric.blockSelectUp", blockSelectUp],
   ];
 
   commandsToRegister.forEach(([cmd, handler]) => {
