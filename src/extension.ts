@@ -7,6 +7,28 @@ const log = vscode.window.createOutputChannel("VSCedric");
 export function activate(context: vscode.ExtensionContext) {
   log.appendLine(`Activating VSCedric...`);
 
+  const copyFileName = () => {
+    if (!vscode.window.activeTextEditor) {
+      vscode.window.setStatusBarMessage("No file is currently open", 3000);
+      return;
+    }
+
+    const document = vscode.window.activeTextEditor.document;
+    const baseName = document.uri.path.split("/").pop();
+
+    if (!baseName) {
+      vscode.window.setStatusBarMessage("Failed to get file name", 3000);
+      return;
+    }
+
+    vscode.env.clipboard.writeText(baseName).then(() => {
+      vscode.window.setStatusBarMessage(
+        `${baseName} copied to clipboard`,
+        3000
+      );
+    });
+  };
+
   const getVisibleTerminals = () => {
     const terminals = vscode.window.terminals;
     return terminals.filter((t) => {
@@ -165,8 +187,68 @@ export default ${componentName};
     fs.writeFileSync(indexFilePath, fileContent);
   };
 
+  const emptyLineBelow = (editor: vscode.TextEditor) => {
+    const document = editor.document;
+    let line = editor.selection.active.line;
+    const max = document.lineCount - 1;
+    while (line < max && !document.lineAt(++line).isEmptyOrWhitespace) {}
+    return document.lineAt(line);
+  };
+
+  const emptyLineAbove = (editor: vscode.TextEditor) => {
+    const document = editor.document;
+    let line = editor.selection.active.line;
+    const min = 0;
+    while (line > min && !document.lineAt(--line).isEmptyOrWhitespace) {}
+    return document.lineAt(line);
+  };
+
+  const changeActive = (
+    editor: vscode.TextEditor,
+    newPosition: vscode.Position
+  ) => {
+    const newSelection = new vscode.Selection(newPosition, newPosition);
+    editor.selection = newSelection;
+    editor.revealRange(new vscode.Range(newPosition, newPosition));
+  };
+
+  const changeActiveSelect = (
+    editor: vscode.TextEditor,
+    newPosition: vscode.Position
+  ) => {
+    const anchor = editor.selection.anchor;
+    const newSelection = new vscode.Selection(anchor, newPosition);
+    editor.selection = newSelection;
+    editor.revealRange(new vscode.Range(newPosition, newPosition));
+  };
+
+  const blockTravelDown = (editor: vscode.TextEditor) => {
+    const line = emptyLineBelow(editor);
+    const newPosition = new vscode.Position(line.lineNumber, line.text.length);
+    changeActive(editor, newPosition);
+  };
+
+  const blockSelectDown = (editor: vscode.TextEditor) => {
+    const line = emptyLineBelow(editor);
+    const newPosition = new vscode.Position(line.lineNumber, line.text.length);
+    changeActiveSelect(editor, newPosition);
+  };
+
+  const blockTravelUp = (editor: vscode.TextEditor) => {
+    const line = emptyLineAbove(editor);
+    const newPosition = new vscode.Position(line.lineNumber, 0);
+    changeActive(editor, newPosition);
+  };
+
+  const blockSelectUp = (editor: vscode.TextEditor) => {
+    const line = emptyLineAbove(editor);
+    const newPosition = new vscode.Position(line.lineNumber, 0);
+    changeActiveSelect(editor, newPosition);
+  };
+
   // Add commands to package.json as well
   const commandsToRegister: Array<[string, () => void]> = [
+    ["extension.vscedric.copyFileName", copyFileName],
     [
       "extension.vscedric.createTsComponentDirectory",
       createTsComponentDirectory,
@@ -178,7 +260,22 @@ export default ${componentName};
     ["extension.vscedric.moveEditorFocusRight", moveEditorFocusRight],
   ];
 
+  const textEditorCommandsToRegister: Array<
+    [string, (editor: vscode.TextEditor) => void]
+  > = [
+    ["extension.vscedric.blockTravelDown", blockTravelDown],
+    ["extension.vscedric.blockSelectDown", blockSelectDown],
+    ["extension.vscedric.blockTravelUp", blockTravelUp],
+    ["extension.vscedric.blockSelectUp", blockSelectUp],
+  ];
+
   commandsToRegister.forEach(([cmd, handler]) => {
     context.subscriptions.push(vscode.commands.registerCommand(cmd, handler));
+  });
+
+  textEditorCommandsToRegister.forEach(([cmd, handler]) => {
+    context.subscriptions.push(
+      vscode.commands.registerTextEditorCommand(cmd, handler)
+    );
   });
 }

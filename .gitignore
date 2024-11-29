@@ -16,7 +16,6 @@ npm-debug.log*
 .secrets.yml
 
 # VSCode
-.vscode
 .vscode-test/
 *.vsix
 

@@ -1,8 +1,10 @@
 {
   "name": "vs-cedric",
   "displayName": "VS Cedric",
-  "description": "",
+  "description": "Personal tooling",
   "version": "0.0.1",
+  "type": "module",
+  "main": "./out/extension.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/mcdougal/vs-cedric"
@@ -13,17 +15,64 @@
   "categories": [
     "Other"
   ],
+  "scripts": {
+    "build": "tsc -p ./ && npx vsce package",
+    "check": "npx npm-check --skip-unused",
+    "watch": "tsc -p ./ --watch"
+  },
+  "watch": {
+    "files": "**/*.ts"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.1",
+    "@types/vscode": "^1.95.0",
+    "@vscode/vsce": "^3.2.1",
+    "eslint": "^9.15.0",
+    "glob": "^11.0.0",
+    "mocha": "^10.8.2",
+    "prettier": "^3.4.1",
+    "tslint": "^6.1.3",
+    "typescript": "^5.7.2",
+    "vsce": "^2.15.0",
+    "vscode-test": "^1.6.1"
+  },
   "activationEvents": [
+    "onCommand:extension.vscedric.blockSelectDown",
+    "onCommand:extension.vscedric.blockSelectUp",
+    "onCommand:extension.vscedric.blockTravelDown",
+    "onCommand:extension.vscedric.blockTravelUp",
+    "onCommand:extension.vscedric.copyFileName",
     "onCommand:extension.vscedric.createTsComponentDirectory",
     "onCommand:extension.vscedric.createTsIndexFile",
-    "onCommand:extension.vscedric.moveTerminalFocusLeft",
-    "onCommand:extension.vscedric.moveTerminalFocusRight",
     "onCommand:extension.vscedric.moveEditorFocusLeft",
-    "onCommand:extension.vscedric.moveEditorFocusRight"
+    "onCommand:extension.vscedric.moveEditorFocusRight",
+    "onCommand:extension.vscedric.moveTerminalFocusLeft",
+    "onCommand:extension.vscedric.moveTerminalFocusRight"
   ],
-  "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "extension.vscedric.blockSelectDown",
+        "title": "Block select down"
+      },
+      {
+        "command": "extension.vscedric.blockSelectUp",
+        "title": "Block select up"
+      },
+      {
+        "command": "extension.vscedric.blockTravelDown",
+        "title": "Block travel down"
+      },
+      {
+        "command": "extension.vscedric.blockTravelUp",
+        "title": "Block travel up"
+      },
+      {
+        "command": "extension.vscedric.copyFileName",
+        "title": "Copy filename"
+      },
       {
         "command": "extension.vscedric.createTsComponentDirectory",
         "title": "Create TS Component Directory"
@@ -49,25 +98,5 @@
         "title": "Move Editor Focus Right"
       }
     ]
-  },
-  "scripts": {
-    "build": "tsc -p ./ && npx vsce package",
-    "watch": "tsc -p ./ --watch"
-  },
-  "watch": {
-    "files": "**/*.ts"
-  },
-  "devDependencies": {
-    "@types/glob": "^7.1.1",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.11.7",
-    "@types/vscode": "^1.41.0",
-    "@vscode/vsce": "^2.24.0",
-    "glob": "^7.1.5",
-    "mocha": "^6.2.2",
-    "tslint": "^5.20.0",
-    "typescript": "^3.6.4",
-    "vsce": "^1.72.0",
-    "vscode-test": "^1.2.2"
   }
 }

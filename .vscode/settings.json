@@ -1,0 +1,48 @@
+{
+  "editor.codeActionsOnSave": { "source.fixAll": "explicit" },
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": { "strings": "on" },
+
+  // Make sure ESLint runs on all relevant file types
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "graphql"
+  ],
+
+  // Custom remote necessary because of custom Host in `~/.ssh/config` used
+  // for 1Password SSH Agent
+  "gitlens.remotes": [
+    {
+      "regex": ".*",
+      "type": "Custom",
+      "name": "Swivvel",
+      "protocols": "https",
+      "urls": {
+        "repository": "https://github.com/mcdougal/vs-cedric",
+        "branches": "https://github.com/mcdougal/vs-cedric/branches",
+        "branch": "https://github.com/mcdougal/vs-cedric/commits/${branch}",
+        "commit": "https://github.com/mcdougal/vs-cedric/commit/${id}",
+        "file": "https://github.com/mcdougal/vs-cedric/tree/main/${id}/${file}${fileLine}",
+        "fileInBranch": "https://github.com/mcdougal/vs-cedric/tree/${branch}/${file}${fileLine}",
+        "fileInCommit": "https://github.com/mcdougal/vs-cedric/tree/commit/${id}/${file}${fileLine}",
+        "fileLine": "#L${line}",
+        "fileRange": "#L${start}-L${end}"
+      }
+    }
+  ],
+
+  // Make sure ESLint runs from the root of the monorepo sub-package, not the
+  // top-level package
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  // The Stylelint plugin will not run on scss files unless you explicitly
+  // configure it to do so
+  "stylelint.validate": ["css", "scss"],
+
+  // Tell VSCode where to find the TypeScript installation
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

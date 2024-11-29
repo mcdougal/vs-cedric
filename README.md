@@ -1,4 +1,4 @@
-# vs-cedric README
+# vs-cedric
 
 To install:
 
