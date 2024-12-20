@@ -21,11 +21,10 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    vscode.env.clipboard.writeText(baseName).then(() => {
-      vscode.window.setStatusBarMessage(
-        `${baseName} copied to clipboard`,
-        3000
-      );
+    const name = baseName.split(".")[0];
+
+    vscode.env.clipboard.writeText(name).then(() => {
+      vscode.window.setStatusBarMessage(`${name} copied to clipboard`, 3000);
     });
   };
 
